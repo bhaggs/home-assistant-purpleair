@@ -60,6 +60,18 @@ class PurpleAirQuality(AirQualityEntity):
         return self._api.get_reading(self._node_id, 'pm10_0_atm')
 
     @property
+    def humidity(self):
+        return self._api.get_reading(self._node_id, 'humidity')
+
+    @property
+    def temp_f(self):
+        return self._api.get_reading(self._node_id, 'temp_f')
+
+    @property
+    def pressure(self):
+        return self._api.get_reading(self._node_id, 'pressure')
+
+    @property
     def should_poll(self):
         return False
 
@@ -67,9 +79,18 @@ class PurpleAirQuality(AirQualityEntity):
     def state_attributes(self):
         attributes = super().state_attributes
         pm1_0 = self.particulate_matter_1_0
+        humidity = self.humidity
+        temp_f = self.temp_f
+        pressure = self.pressure
 
         if pm1_0:
             attributes['particulate_matter_1_0'] = pm1_0
+        if humidity:
+            attributes['humidity'] = humidity
+        if temp_f:
+            attributes['temp_f'] = temp_f
+        if pressure:
+            attributes['pressure'] = pressure
 
         return attributes
 

@@ -158,7 +158,8 @@ class PurpleAirApi:
 
             sensor_data = readings[sensor] if sensor in readings else {}
             for prop in JSON_PROPERTIES:
-                sensor_data[prop] = result[prop] if prop in result else None
+                if prop in result:
+                    sensor_data[prop] = result[prop]
 
             if not all(value is None for value in sensor_data.values()):
                 readings[sensor] = sensor_data
@@ -176,6 +177,10 @@ class PurpleAirApi:
                         b = float(readings['B'][prop])
                         readings[prop] = round((a + b) / 2, 1)
                         readings[f'{prop}_confidence'] = 'Good' if abs(a - b) < 45 else 'Questionable'
+                    elif prop in readings['A']:
+                        a = float(readings['A'][prop])
+                        readings[prop] = round(a, 1)
+                        readings[f'{prop}_confidence'] = 'Good'
                     else:
                         readings[prop] = None
             else:

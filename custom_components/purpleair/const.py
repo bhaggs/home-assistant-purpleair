@@ -17,7 +17,7 @@ DISPATCHER_PURPLE_AIR = 'dispatcher_purple_air'
 
 DOMAIN = "purpleair"
 
-JSON_PROPERTIES = ['pm1_0_atm', 'pm2_5_atm', 'pm10_0_atm']
+JSON_PROPERTIES = ['pm1_0_atm', 'pm2_5_atm', 'pm10_0_atm', 'humidity', 'temp_f', 'pressure']
 
 SCAN_INTERVAL = 300
 
