@@ -36,6 +36,10 @@ class PurpleAirQuality(AirQualityEntity):
         return self._api.get_reading(self._node_id, 'pm2_5_atm_aqi')
 
     @property
+    def air_quality_index_epa(self):
+        return self._api.get_reading(self._node_id, 'pm2_5_atm_aqi_epa')
+
+    @property
     def attribution(self):
         return 'Data provided by PurpleAir'
 
@@ -78,11 +82,14 @@ class PurpleAirQuality(AirQualityEntity):
     @property
     def state_attributes(self):
         attributes = super().state_attributes
+        air_quality_index_epa = self.air_quality_index_epa
         pm1_0 = self.particulate_matter_1_0
         humidity = self.humidity
         temp_f = self.temp_f
         pressure = self.pressure
-
+        
+        if air_quality_index_epa:
+            attributes['air_quality_index_epa'] = air_quality_index_epa
         if pm1_0:
             attributes['particulate_matter_1_0'] = pm1_0
         if humidity:

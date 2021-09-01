@@ -26,6 +26,12 @@ def calc_aqi(value, index):
     c = value - bp['pm_low']
     return round((aqi_range/pm_range) * c + bp['aqi_low'])
 
+def calc_epa_conversion(pm, rh):
+    """Applies the EPA calibration to Purple's PM2.5 data.
+    We floor it to 0 since the combination of very low pm2.5 concentration
+    and very high humidity can lead to negative numbers.
+    """
+    return max(0, 0.534 * pm - 0.0844 * rh + 5.604)
 
 class PurpleAirApi:
     def __init__(self, hass, session):
@@ -196,6 +202,7 @@ class PurpleAirApi:
 
             if 'pm2_5_atm' in readings and readings['pm2_5_atm']:
                 readings['pm2_5_atm_aqi'] = calc_aqi(readings['pm2_5_atm'], 'pm2_5')
+                readings['pm2_5_atm_aqi_epa'] = calc_aqi(calc_epa_conversion(readings['pm2_5_atm'], readings['humidity']), 'pm2_5')
 
         self._data = nodes
         async_dispatcher_send(self._hass, DISPATCHER_PURPLE_AIR)

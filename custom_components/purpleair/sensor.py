@@ -42,7 +42,7 @@ class PurpleAirQualityIndex(Entity):
 
     @property
     def name(self):
-        return f'{self._title} Air Quality Index'
+        return f'{self._title} Air Quality Index (EPA)'
 
     @property
     def should_poll(self):
@@ -50,15 +50,15 @@ class PurpleAirQualityIndex(Entity):
 
     @property
     def state(self):
-        return self._api.get_reading(self._node_id, 'pm2_5_atm_aqi')
+        return self._api.get_reading(self._node_id, 'pm2_5_atm_aqi_epa')
 
     @property
     def unique_id(self):
-        return f'{self._node_id}_air_quality_index'
+        return f'{self._node_id}_air_quality_index_epa'
 
     @property
     def unit_of_measurement(self):
-        return 'AQI'
+        return 'AQI (EPA)'
 
     async def async_added_to_hass(self):
         self._stop_listening = async_dispatcher_connect(
