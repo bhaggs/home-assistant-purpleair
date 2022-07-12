@@ -1,3 +1,9 @@
+_Since creating this fork to add support for the EPA's wildfire smoke AQI calculation, the original author of the integration has made a significant update to not only add support for the EPA's updated AQI calculation but also added support for PurpleAir's personal API key credentials which are required going forward to access the API._
+
+_This repo will no longer be maintained and you should use the latest version of the [original repo](https://gitlab.com/gibwar/home-assistant-purpleair)._
+
+---
+
 A quick and dirty integration for Home Assistant to integrate PurpleAir
 air quality sensors. This will create an `air_quality` sensor with the
 relevant data and create an additional AQI `sensor` for ease-of-use.
